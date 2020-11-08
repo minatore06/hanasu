@@ -38,6 +38,10 @@ public class MultiServer {
         utenti.add(me);
     }
     
+    public void removeUtente(ServerThread me){
+        utenti.remove(me);
+    }
+    
     public void sendAll(String message, ServerThread me){
         for (int i = 0; i < utenti.size(); i++) {
             if(utenti.get(i) == me)continue;

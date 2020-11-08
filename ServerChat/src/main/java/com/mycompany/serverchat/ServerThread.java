@@ -64,6 +64,7 @@ public class ServerThread extends Thread{
                 outputClient.close();
                 client.close();
                 gf.sendAll(nome+" disconnected!", this);
+                gf.removeUtente(this);
                 return;
             }
             try {   
