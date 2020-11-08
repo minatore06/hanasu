@@ -48,6 +48,12 @@ Creati i messagi di sistema
 VER. #0.8.5
 Creato formato dei dm
 
+VER. #0.8.6
+Fix chat one to one
+
+VER. #0.8.7
+Sistemato nickname one to one, veniva mostrato il destinatario invece del mittente
+
 TO DO
 Controlli sul nickname
 Vietare caratteri e determinati nickname
