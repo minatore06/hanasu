@@ -14,12 +14,11 @@ public class ServerThread extends Thread{
     String stringaMod = null;
     BufferedReader inputClient;
     DataOutputStream outputClient;
-    DataOutputStream outputChat;
-    String nome = null;
+    String nick = null;
     MultiServer gf = null;//Grande Fratello
 
-    public String getNome() {
-        return nome;
+    public String getNick() {
+        return nick;
     }
     
     public void run(){
@@ -35,12 +34,12 @@ public class ServerThread extends Thread{
         String listaNomi = "";
         
         outputClient.writeBytes("Inserisci il tuo nickname\n");
-        nome = inputClient.readLine();
-        System.out.println(nome);
+        nick = inputClient.readLine();
+        System.out.println(nick);
         
         gf.addUtente(this);
         
-        gf.sendAll(nome+" connected to the chat!", this);
+        gf.sendAll(nick+" connected to the chat!", this);
         nomi = gf.getAllNicks(this);
         
         for (int i = 0; i < nomi.size(); i++) {
@@ -54,23 +53,49 @@ public class ServerThread extends Thread{
     }
     
     public void comunica()throws Exception{
+        String cmd = "";
         for(;;){
             
             stringaClient = inputClient.readLine();
+            if(stringaClient.indexOf('/')!=-1){
+                cmd = stringaClient.substring(1, 3);
+                System.out.println(cmd);
+                switch(cmd){
+                    case "dm":
+                        if(stringaClient.indexOf('^', 4)!=-1)/*carattere da rivedere, per indicare fine nome(magari fare con spazio)*/{
+                            //prendi nome, cerca thread manda messagggio
+                            String destinatario = stringaClient.substring(4, stringaClient.indexOf('^'));
+                            System.out.println("destinatario: "+destinatario);
+                            ArrayList<String> nomi = gf.getAllNicks(this);
+                            
+                            if(nomi.indexOf(destinatario)!=-1){
+                                //trovato
+                                gf.privateMSG(destinatario, stringaClient.substring(stringaClient.indexOf('^')+2));
+                            }else{
+                                //errore, non esiste
+                                outputClient.writeBytes("SISTEMA: L'utente non e' stato trovato\n");
+                            }
+                        }else{
+                            //errore, non ha messo nessun nome
+                            outputClient.writeBytes("SISTEMA: Non e' stato inserito nessun nome o e' stato omesso il carattere speciale\n");
+                        }
+                        break;
+                }
+            }
             //Chiusura connessione con client
             if(stringaClient.equals("FINE")){//rivedere
-                System.out.println(nome+" left the chat!");
+                System.out.println(nick+" left the chat!");
                 outputClient.writeBytes("7586\n");//Invio killer line
                 inputClient.close();
                 outputClient.close();
                 client.close();
-                gf.sendAll(nome+" disconnected!", this);
+                gf.sendAll(nick+" disconnected!", this);
                 gf.removeUtente(this);
                 return;
             }
             try {   
                 //outputChat.writeBytes(nome+": "+stringaClient+"\n");
-                gf.sendAll(nome+": "+stringaClient, this);
+                gf.sendAll(nick+": "+stringaClient, this);
                 
             } catch (Exception e) {
                 outputClient.writeBytes("Non ci sono utenti rimasti in chat, disconnessione automatica!\n");

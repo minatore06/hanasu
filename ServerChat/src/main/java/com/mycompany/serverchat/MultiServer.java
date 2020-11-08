@@ -54,11 +54,25 @@ public class MultiServer {
         }
     }
     
+    public boolean privateMSG(String dest, String message){
+        for (int i = 0; i < utenti.size(); i++) {
+            if(utenti.get(i).getNick().equals(dest)){
+                try {
+                    utenti.get(i).invia("DM from->"+dest+": "+message+'\n');
+                    return true;
+                } catch (IOException ex) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+    
     public ArrayList<String> getAllNicks(ServerThread me){
         ArrayList<String> nomi = new ArrayList();
         for (int i = 0; i < utenti.size(); i++) {
             if(utenti.get(i) == me)continue;
-            nomi.add(utenti.get(i).getNome());
+            nomi.add(utenti.get(i).getNick());
         }
         return nomi;
     }

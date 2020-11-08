@@ -33,9 +33,29 @@ Ora nella lista dei nickname non c'e' la virgola finale
 VER. #0.7
 Aggiunta la rimozione del thread alla chiusura della connessione col client
 
+VER. #0.8
+Aggiunto private message
+
+VER. #0.8.1
+Creato formato comando /dm nome^
+
+VER. #0.8.2
+Aggiunto rilevazione mancato nome, nome non presente
+
+VER. #0.8.3
+Creati i messagi di sistema
+
+VER. #0.8.4
+Creato formato dei dm
+
 TO DO
-Chat one-one
 Controlli sul nickname
+Vietare caratteri e determinati nickname
+Istruzioni
 GUI
 Chiusura forzata
 Gruppi
+
+DONE
+chat one-all
+chat one-one
