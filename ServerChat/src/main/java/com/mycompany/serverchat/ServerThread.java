@@ -44,7 +44,8 @@ public class ServerThread extends Thread{
         nomi = gf.getAllNicks(this);
         
         for (int i = 0; i < nomi.size(); i++) {
-            listaNomi += nomi.get(i)+", ";
+            listaNomi += nomi.get(i);
+            if(i!=(nomi.size()-1))listaNomi += ", ";
         }
         
         outputClient.writeBytes("Lista degli utenti già connessi: "+listaNomi+"\n");
