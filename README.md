@@ -24,10 +24,10 @@ Ora tutti riceveranno un avviso quando qualcuno si connette e si disconnette
 VER. #0.6
 Ora si riceverà una lista di tutti i nickname già connessi
 
-VER. #0.6.1
+VER. #0.6.2
 Per problemi con la lista dei nick ora i thread sono inseriti nell'array solo dopo aver inserito il nickname
 
-VER. #0.6.2
+VER. #0.6.3
 Ora nella lista dei nickname non c'e' la virgola finale
 
 VER. #0.7
@@ -36,16 +36,16 @@ Aggiunta la rimozione del thread alla chiusura della connessione col client
 VER. #0.8
 Aggiunto private message
 
-VER. #0.8.1
+VER. #0.8.2
 Creato formato comando /dm nome^
 
-VER. #0.8.2
+VER. #0.8.3
 Aggiunto rilevazione mancato nome, nome non presente
 
-VER. #0.8.3
+VER. #0.8.4
 Creati i messagi di sistema
 
-VER. #0.8.4
+VER. #0.8.5
 Creato formato dei dm
 
 TO DO

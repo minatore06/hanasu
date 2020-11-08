@@ -54,11 +54,11 @@ public class MultiServer {
         }
     }
     
-    public boolean privateMSG(String dest, String message){
+    public boolean privateMSG(String dest, String mit, String message){
         for (int i = 0; i < utenti.size(); i++) {
             if(utenti.get(i).getNick().equals(dest)){
                 try {
-                    utenti.get(i).invia("DM from->"+dest+": "+message+'\n');
+                    utenti.get(i).invia("DM from->"+mit+": "+message+'\n');
                     return true;
                 } catch (IOException ex) {
                     return false;

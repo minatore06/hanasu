@@ -70,7 +70,7 @@ public class ServerThread extends Thread{
                             
                             if(nomi.indexOf(destinatario)!=-1){
                                 //trovato
-                                gf.privateMSG(destinatario, stringaClient.substring(stringaClient.indexOf('^')+2));
+                                gf.privateMSG(destinatario, nick, stringaClient.substring(stringaClient.indexOf('^')+2));
                             }else{
                                 //errore, non esiste
                                 outputClient.writeBytes("SISTEMA: L'utente non e' stato trovato\n");
@@ -81,29 +81,30 @@ public class ServerThread extends Thread{
                         }
                         break;
                 }
-            }
-            //Chiusura connessione con client
-            if(stringaClient.equals("FINE")){//rivedere
-                System.out.println(nick+" left the chat!");
-                outputClient.writeBytes("7586\n");//Invio killer line
-                inputClient.close();
-                outputClient.close();
-                client.close();
-                gf.sendAll(nick+" disconnected!", this);
-                gf.removeUtente(this);
-                return;
-            }
-            try {   
-                //outputChat.writeBytes(nome+": "+stringaClient+"\n");
-                gf.sendAll(nick+": "+stringaClient, this);
-                
-            } catch (Exception e) {
-                outputClient.writeBytes("Non ci sono utenti rimasti in chat, disconnessione automatica!\n");
-                outputClient.writeBytes("7586\n");
-                inputClient.close();
-                outputClient.close();
-                client.close();
-                return;
+            }else{
+                //Chiusura connessione con client
+                if(stringaClient.equals("FINE")){//rivedere
+                    System.out.println(nick+" left the chat!");
+                    outputClient.writeBytes("7586\n");//Invio killer line
+                    inputClient.close();
+                    outputClient.close();
+                    client.close();
+                    gf.sendAll(nick+" disconnected!", this);
+                    gf.removeUtente(this);
+                    return;
+                }
+                try {   
+                    //outputChat.writeBytes(nome+": "+stringaClient+"\n");
+                    gf.sendAll(nick+": "+stringaClient, this);
+
+                } catch (Exception e) {
+                    outputClient.writeBytes("Non ci sono utenti rimasti in chat, disconnessione automatica!\n");
+                    outputClient.writeBytes("7586\n");
+                    inputClient.close();
+                    outputClient.close();
+                    client.close();
+                    return;
+                }
             }
         }
     }
