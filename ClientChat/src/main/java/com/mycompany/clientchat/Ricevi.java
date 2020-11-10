@@ -9,17 +9,18 @@ public class Ricevi extends Thread{
     ClientChat gui = null;
     
     public void run(){
-        for(;;){
+        for(;;){//ripetizione infinita
             try {
-                stringa = inputServer.readLine();
+                stringa = inputServer.readLine();//ricezione messaggio
+                //controllo se è stata richiesta una disconnessione dal server
                 if(stringa.equals("Logout")){
-                    gui.addMsg("Disconnesso\r\n");
-                    inputServer.close();                  
+                    gui.addMsg("Disconnesso\r\n");//aggiunta a schermo del messaggio di disconnessione nella gui
+                    inputServer.close();
                     System.exit(0);
                 }
-                gui.addMsg(stringa+"\r\n");
+                gui.addMsg(stringa+"\r\n");//mostra messaggio tramite interfaccia all'utente
 
-            } catch (Exception e) {
+            } catch (Exception e) {//errore, la comunicazione viene considerata interrotta
                 System.out.println(e.getMessage());
                 gui.addMsg("Comunicazione terminata\r\n");
                 System.exit(1);
