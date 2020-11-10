@@ -16,6 +16,7 @@ public class ServerChat{
             JTextField txtPort = new JTextField("12345"); 
             Object[] texts = {lblMessage, txtPort }; 
             JOptionPane.showMessageDialog(null, texts);
+            
             MultiServer master = new MultiServer(Integer.parseInt(txtPort.getText())); 
             JOptionPane.showMessageDialog(null,"Server attivo nella porta: "+ txtPort.getText()); 
         }catch (Exception e) 
