@@ -95,3 +95,6 @@ GUI,
 Chiusura forzata,
 Controlli sul nickname,
 Commentato
+
+Project Manager
+C.Stefano
