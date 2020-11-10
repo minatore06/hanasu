@@ -17,8 +17,6 @@ public class ServerChat{
     private InputStream in; 
     private InputStreamReader inr; 
     private BufferedReader bfr;*/
-    private static MultiServer master = null;
-    private static String porta = "";
 
     /*
     public void run()
@@ -61,8 +59,7 @@ public class ServerChat{
             JTextField txtPort = new JTextField("12345"); 
             Object[] texts = {lblMessage, txtPort }; 
             JOptionPane.showMessageDialog(null, texts);
-            porta = txtPort.getText();
-            master = new MultiServer(Integer.parseInt(porta)); 
+            MultiServer master = new MultiServer(Integer.parseInt(txtPort.getText())); 
             JOptionPane.showMessageDialog(null,"Server attivo nella porta: "+ txtPort.getText()); 
             /*while(true)
             { 

@@ -80,7 +80,7 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
         connetti();
     }
 
-    public void connetti() throws IOException
+    private void connetti() throws IOException
     { 
         utente = new Client(txtIP.getText(), Integer.parseInt(txtPorta.getText()), txtNome.getText(), this);
         System.out.println("sei in connetti");

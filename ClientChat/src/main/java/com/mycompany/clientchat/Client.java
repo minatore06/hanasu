@@ -37,7 +37,7 @@ public class Client {
         connetti();
     }
     
-    public void connetti(){
+    private void connetti(){
         System.out.println("Client in esecuzione!");
         try {
             //tastiera = new BufferedReader(new InputStreamReader(System.in));
@@ -56,7 +56,7 @@ public class Client {
         }
     }
     
-    public void comunica(){
+    private void comunica(){
         try {
             //System.out.println(inputServer.readLine());//non server più, togliere dal server
             

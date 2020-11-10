@@ -11,7 +11,6 @@ public class ServerThread extends Thread{
     ServerThread server = null;
     Socket client = null;
     String stringaClient = null;
-    String stringaMod = null;
     BufferedReader inputClient;
     DataOutputStream outputClient;
     String nick = null;
@@ -29,7 +28,7 @@ public class ServerThread extends Thread{
         }
     }
     
-    public void initialization() throws Exception{
+    private void initialization() throws Exception{
         ArrayList<String> nomi = null;
         String listaNomi = "";
         
@@ -52,7 +51,7 @@ public class ServerThread extends Thread{
         comunica();
     }
     
-    public void comunica()throws Exception{
+    private void comunica()throws Exception{
         String cmd = "";
         for(;;){
             
