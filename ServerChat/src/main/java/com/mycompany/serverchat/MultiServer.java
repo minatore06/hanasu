@@ -65,11 +65,20 @@ public class MultiServer {
         for (int i = 0; i < utenti.size(); i++) {
             if(utenti.get(i).getNick().equals(dest)){//ricerca dell'utente tramite nickname
                 try {
-                    utenti.get(i).invia("DM from->"+mit+": "+message);
+                    utenti.get(i).invia("DM from-> "+mit+": "+message);
                     return true;
                 } catch (IOException ex) {
                     return false;
                 }
+            }
+        }
+        return false;
+    }
+    
+    public boolean checkNick(String me){
+        for (int i = 0; i < utenti.size(); i++) {
+            if(utenti.get(i).getNick().equals(me)){
+                return true;
             }
         }
         return false;

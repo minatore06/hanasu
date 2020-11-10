@@ -80,12 +80,13 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
         connetti();
     }
 
+    //connessione
     private void connetti() throws IOException
-    { 
+    {
         utente = new Client(txtIP.getText(), Integer.parseInt(txtPorta.getText()), txtNome.getText(), this);
-        System.out.println("sei in connetti");
     }
     
+    //aggiunge il messaggio all'interfaccia
     public void addMsg(String msg){
         testo.append(msg);
     }
@@ -93,11 +94,18 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        //invio del messaggio tramite tasto INVIA
         if(e.getActionCommand().equals(btnInvio.getActionCommand()))
         { 
-            utente.getTrasmetti().invia(txtMessaggio.getText());
+            if(utente.getENEx()){//se il nickname è già esistente il messaggio viene considerato come il nuovo nickname
+                utente.setNick(txtMessaggio.getText());//cambia il nickname
+                utente.setENEx(false);//informa che il nickname è stato cambiato
+            }else{
+                utente.getTrasmetti().invia(txtMessaggio.getText());
+            }
             txtMessaggio.setText("");
         }
+        //logout tramite pulsante LOGOUT
         else if(e.getActionCommand().equals(btnLogout.getActionCommand())) 
         {
             utente.logout();
@@ -106,10 +114,15 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     
     @Override 
     public void keyPressed(KeyEvent e) 
-    { 
+    {   //invio del messaggio tramite tasto ENTER
         if(e.getKeyCode() == KeyEvent.VK_ENTER)
         { 
-            utente.getTrasmetti().invia(txtMessaggio.getText());
+            if(utente.getENEx()){//se il nickname è già esistente il messaggio viene considerato come il nuovo nickname
+                utente.setNick(txtMessaggio.getText());//cambia il nickname
+                utente.setENEx(false);//informa che il nickname è stato cambiato
+            }else{
+                utente.getTrasmetti().invia(txtMessaggio.getText());
+            }
             txtMessaggio.setText("");
         } 
     } 
