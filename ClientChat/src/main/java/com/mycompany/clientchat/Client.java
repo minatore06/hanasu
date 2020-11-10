@@ -1,10 +1,6 @@
  package com.mycompany.clientchat;
 import java.io.*;
 import java.net.*;
-/**
- *
- * @author stei2
- */
 public class Client {
     String nomeServer = "localhost";
     int portaServer = 12345;
@@ -18,11 +14,6 @@ public class Client {
     Ricevi ricevi = null;
     String nick = "";
     ClientChat gui = null;
-    
-    /*public static void main(String[] args) {
-        Client cliente = new Client();
-        cliente.connetti();
-    }*/
 
     public Trasmetti getTrasmetti(){
         return trasmetti;
@@ -32,20 +23,16 @@ public class Client {
         nomeServer = ip;
         portaServer = porta;
         nick = nickname;
-        this.gui = gui;
-        
+        this.gui = gui;      
         connetti();
     }
     
     private void connetti(){
         System.out.println("Client in esecuzione!");
-        try {
-            //tastiera = new BufferedReader(new InputStreamReader(System.in));
-            mioSocket = new Socket(nomeServer,portaServer);
-            
+        try {      
+            mioSocket = new Socket(nomeServer,portaServer);           
             outputServer = new DataOutputStream((mioSocket.getOutputStream()));
-            inputServer = new BufferedReader(new InputStreamReader(mioSocket.getInputStream()));
-            
+            inputServer = new BufferedReader(new InputStreamReader(mioSocket.getInputStream()));           
             comunica();
         } catch(UnknownHostException e){
             System.err.println("Host sconosciuto");
@@ -57,13 +44,9 @@ public class Client {
     }
     
     private void comunica(){
-        try {
-            //System.out.println(inputServer.readLine());//non server più, togliere dal server
-            
+        try {   
             outputServer.writeBytes(nick+'\n');
-
-            gui.addMsg(inputServer.readLine()+"\r\n");//lista nomi, mettere su gui
-
+            gui.addMsg(inputServer.readLine()+"\r\n");
             trasmetti = new Trasmetti(outputServer, mioSocket, gui);
             ricevi = new Ricevi(inputServer, gui);
             ricevi.start();
@@ -71,8 +54,7 @@ public class Client {
             System.out.println(e.getMessage());
             System.out.println("Errore durante la comunicazione col server");
             System.exit(1);
-        }
-        
+        }        
     }
     
     public void logout(){

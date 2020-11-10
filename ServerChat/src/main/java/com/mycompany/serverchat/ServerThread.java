@@ -3,10 +3,6 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- *
- * @author stei2
- */
 public class ServerThread extends Thread{
     ServerThread server = null;
     Socket client = null;
@@ -14,7 +10,7 @@ public class ServerThread extends Thread{
     BufferedReader inputClient;
     DataOutputStream outputClient;
     String nick = null;
-    MultiServer gf = null;//Grande Fratello
+    MultiServer gf = null;
 
     public String getNick() {
         return nick;
@@ -31,8 +27,7 @@ public class ServerThread extends Thread{
     private void initialization() throws Exception{
         ArrayList<String> nomi = null;
         String listaNomi = "";
-        
-        //outputClient.writeBytes("Inserisci il tuo nickname\n");
+  
         nick = inputClient.readLine();
         System.out.println(nick);
         

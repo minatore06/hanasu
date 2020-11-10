@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author stei2
- */
 public class MultiServer {
     Socket socket = null;
     int porta = 12345;
@@ -55,7 +51,6 @@ public class MultiServer {
             try {
                 utenti.get(i).invia(message);
             } catch (IOException ex) {
-                //qualcosa
             }
             
         }

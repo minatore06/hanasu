@@ -2,10 +2,6 @@ package com.mycompany.clientchat;
 
 import java.io.*;
 import java.net.Socket;
-/**
- *
- * @author stei2
- */
 public class Ricevi extends Thread{
     BufferedReader inputServer;
     Socket socket;
@@ -16,10 +12,9 @@ public class Ricevi extends Thread{
         for(;;){
             try {
                 stringa = inputServer.readLine();
-                if(stringa.equals("Logout")){//non riceve questa stringa, fixxare
+                if(stringa.equals("Logout")){
                     gui.addMsg("Disconnesso\r\n");
-                    inputServer.close();
-                    //socket.close();
+                    inputServer.close();                  
                     System.exit(0);
                 }
                 gui.addMsg(stringa+"\r\n");

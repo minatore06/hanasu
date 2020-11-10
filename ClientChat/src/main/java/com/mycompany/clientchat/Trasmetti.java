@@ -4,10 +4,6 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.*;
 
-/**
- *
- * @author stei2
- */
 public class Trasmetti{
     BufferedReader tastiera;
     DataOutputStream outputServer;
@@ -18,7 +14,6 @@ public class Trasmetti{
         try {
             outputServer.writeBytes(stringa+"\n");
             if(stringa.equals("Logout")){
-                //System.out.println("Chiusura connessione");
                 gui.addMsg("Disconnesso\r\n");
                 outputServer.close();
                 socket.close();

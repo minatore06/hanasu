@@ -84,68 +84,12 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     { 
         utente = new Client(txtIP.getText(), Integer.parseInt(txtPorta.getText()), txtNome.getText(), this);
         System.out.println("sei in connetti");
-        /*ou = socket.getOutputStream();
-        ouw = new OutputStreamWriter(ou);
-        bfw = new BufferedWriter(ouw);
-        bfw.write(txtNome.getText()+"\r\n");
-        bfw.flush();*/
     }
     
     public void addMsg(String msg){
         testo.append(msg);
     }
-    
-    //non più necessario
-    /*public void inviaMessaggio(String msg) throws IOException
-    { 
-        if(msg.equals("Logout"))
-        { 
-            bfw.write("Disconnesso \r\n"); 
-            testo.append("Diconnesso \r\n"); 
-        }
-        else
-        { 
-            bfw.write(msg+"\r\n"); 
-            testo.append( txtNome.getText() + " <tu> -> " + txtMessaggio.getText()+"\r\n");
-        } 
-        bfw.flush();
-        txtMessaggio.setText(""); 
-    }*/
-
-    //non più necessario
-    /*
-    public void ascolta() throws IOException
-    { 
-        InputStream in = socket.getInputStream();
-        InputStreamReader inr = new InputStreamReader(in); 
-        BufferedReader bfr = new BufferedReader(inr);
-        String msg = ""; 
-        while(!"Logout".equalsIgnoreCase(msg)) {
-            if(bfr.ready()){
-                msg = bfr.readLine(); 
-                if(msg.equals("Logout")) 
-                {
-                    testo.append("Server out! \r\n");
-                } 
-                else
-                {
-                    testo.append(msg+"\r\n");
-                } 
-            } 
-        }
-    }*/
-    
-    //Non più necessario
-    /*
-    public void logout() throws IOException
-    {
-        utente.getTrasmetti().invia("Logout");
-        bfw.close(); 
-        ouw.close(); 
-        ou.close(); 
-        socket.close();
-    }*/
-    
+       
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -165,7 +109,7 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     { 
         if(e.getKeyCode() == KeyEvent.VK_ENTER)
         { 
-            utente.getTrasmetti().invia(txtMessaggio.getText());/*inviaMessaggio(txtMessaggio.getText())*/;
+            utente.getTrasmetti().invia(txtMessaggio.getText());
             txtMessaggio.setText("");
         } 
     } 
@@ -182,8 +126,6 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
 
     public static void main(String[] args) throws IOException {
         ClientChat client = new ClientChat();
-        //client.connetti();
-        //client.ascolta();
     }
 
 }
