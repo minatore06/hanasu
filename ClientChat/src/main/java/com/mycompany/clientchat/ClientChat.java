@@ -83,7 +83,11 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     //connessione
     private void connetti() throws IOException
     {
+        System.out.println(utente);
         utente = new Client(txtIP.getText(), Integer.parseInt(txtPorta.getText()), txtNome.getText(), this);
+        System.out.println(utente);
+        utente.connetti();
+        System.out.println(utente);
     }
     
     //aggiunge il messaggio all'interfaccia
@@ -96,7 +100,7 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     {
         //invio del messaggio tramite tasto INVIA
         if(e.getActionCommand().equals(btnInvio.getActionCommand()))
-        { 
+        {
             if(utente.getENEx()){//se il nickname è già esistente il messaggio viene considerato come il nuovo nickname
                 utente.setNick(txtMessaggio.getText());//cambia il nickname
                 utente.setENEx(false);//informa che il nickname è stato cambiato
@@ -118,8 +122,10 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
         if(e.getKeyCode() == KeyEvent.VK_ENTER)
         { 
             if(utente.getENEx()){//se il nickname è già esistente il messaggio viene considerato come il nuovo nickname
+                System.out.println("Nickname modificato");
                 utente.setNick(txtMessaggio.getText());//cambia il nickname
-                utente.setENEx(false);//informa che il nickname è stato cambiato
+                utente.setENEx(false);//informa che il nickname è stato cambiato ed il problema potrebbe essere risoldo
+                System.out.println(txtMessaggio.getText());
             }else{
                 utente.getTrasmetti().invia(txtMessaggio.getText());
             }

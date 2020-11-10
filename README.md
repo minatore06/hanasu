@@ -12,7 +12,7 @@ VER. #0.2
 I client sono stati riadattati per il numero di input ed output richiesti alla connessione, creata una classe apposita sul server per l'inizializzazione
 (al momento il clinet non ha necessitato modifiche se non il numero di I/O allo start)
 
-VER. #0.343.464
+VER. #0.3.464
 Il Grande Fratello ti osserva sempre
 
 VER. #0.4
@@ -75,14 +75,23 @@ Riadattato serverGui perchè usasse i metodi già creati nella classe MultiServe
 VER. #1.0.5
 Porta presa tramite input
 
+VER. #1.1
+Gestita chiusura inaspettata del client
+
+VER. #1.1.3
+Controllo nickname, non possono esistere 2 nickname uguali
+
+VER. #1.1.5
+Adesso è possibile cambiare nickname se è già esistente
+
 TO DO
-Controlli sul nickname
-determinati nickname
-Istruzioni
-Chiusura forzata
+Comandi server,
 Gruppi
 
 DONE
-chat one-all
-chat one-one
-GUI
+chat one-all,
+chat one-one,
+GUI,
+Chiusura forzata,
+Controlli sul nickname,
+Commentato

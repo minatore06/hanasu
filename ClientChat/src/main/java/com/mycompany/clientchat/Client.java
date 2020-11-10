@@ -14,14 +14,14 @@ public class Client {
     Ricevi ricevi = null;
     String nick = "";
     ClientChat gui = null;
-    boolean ENEx = false; //Error Name Exist
+    boolean ENEx = false; //Error Name Exist TRUE = Il nickname scelto è già esistente nel server | FALSE = Problema probabilmente risolto, il nuovo nick verrà inviato al server
+    boolean WCN = false;//Wait change nickname TRUE = in attesa di nuovo nickname | FALSE = non è prevista la modifica del nickname
     
     public Client(String ip, int porta, String nickname, ClientChat gui){
         nomeServer = ip;
         portaServer = porta;
         nick = nickname;
-        this.gui = gui;      
-        connetti();
+        this.gui = gui;
     }
 
     public Trasmetti getTrasmetti(){
@@ -37,11 +37,11 @@ public class Client {
     }
     
     public void setNick(String nick){
-        this.nick = nick;
+        if(WCN)this.nick = nick;//cambia il nickname solo se è prevista una sua modifica
     }
     
     //connessione col server
-    private void connetti(){
+    public void connetti(){
         System.out.println("Client in esecuzione!");
         try {      
             mioSocket = new Socket(nomeServer,portaServer);           
@@ -61,13 +61,21 @@ public class Client {
         try {   
             outputServer.writeBytes(nick+'\n');//invio del nickname
             stringaServer = inputServer.readLine();
-            
-            while(stringaServer.equals("0XiTruffa")){//nickname già esistente
-                if(!ENEx)gui.addMsg("Nickname già esistente\r\n");//deve essere eseguito la prima volta
-                ENEx = true;//setta errore nickname già esistente
-                if(!ENEx){//se il nickname è stato cambiato
-                    outputServer.writeBytes(nick+'\n');//invio del nickname
+            System.out.println(stringaServer);
+            while(stringaServer.equals("0XiTruffa")){//finchè il nickname è già esistente
+                if(!WCN){//è già in attesa del cambio di nickname?
+                    ENEx = true;//setta errore nickname già esistente informando la gui che ha bisogno di un nuovo input
+                    WCN = true;//il nickname deve essere cambiato
+                    gui.addMsg("Nickname già esistente\r\n");//informa il client
+                    System.out.println(nick);
+                }
+                System.out.println(nick+ENEx+WCN);//operazione neccessaria, altrimenti si blocca l'esecuzione del while
+                if(!ENEx){//è stato cambiato il nickname? (comportando la possibile soluzione dell'errore)
+                    System.out.println(nick);
+                    outputServer.writeBytes(nick+'\n');//invio del nickname al server
                     stringaServer = inputServer.readLine();//ricezione messaggio dal server
+                    System.out.println(stringaServer);
+                    WCN = false;//il nickname è stato cambiato
                 }
             }
             gui.addMsg(stringaServer+"\r\n");//mostra l'elenco degli utenti connessi in chat

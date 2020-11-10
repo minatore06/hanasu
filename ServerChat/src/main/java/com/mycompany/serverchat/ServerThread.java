@@ -29,6 +29,7 @@ public class ServerThread extends Thread{
                 client.close();
                 gf.sendAll("SISTEMA-> "+nick+" disconnesso!", this);//notifica a tutti gli utenti connessi la disconnessione
                 gf.removeUtente(this);//rimuove thread dall'arraylist
+                System.out.println(nick+" disconnected");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -47,7 +48,7 @@ public class ServerThread extends Thread{
 
         //controllo sul nickname
         while(gf.checkNick(nick)){//doppio nick
-            System.out.println("nickname ripetuta - "+nick);
+            System.out.println("nickname ripetuto - "+nick);
             outputClient.writeBytes("0XiTruffa\n");//invia errore nickname già esistente
             nick = inputClient.readLine();//presa del nickname, al momento non è presente nessun controllo
         }
@@ -57,6 +58,7 @@ public class ServerThread extends Thread{
         gf.addUtente(this);//aggiunge il thread all'arraylist solo dopo che è venuto a conoscenza del nick
         
         gf.sendAll("SISTEMA-> "+nick+" si è connesso alla chat!", this);//mostra a tutti che si è connesso
+        System.out.println(nick+" connected");
         nomi = gf.getAllNicks(this);
         
         for (int i = 0; i < nomi.size(); i++) {//rende l'array una singola stringa
@@ -108,7 +110,7 @@ public class ServerThread extends Thread{
             }else{
                 //Chiusura connessione con client
                 if(stringaClient.equals("Logout")){//dovrebbe funzionare
-                    System.out.println(nick+" disconnesso!");
+                    System.out.println(nick+" disconnected");
                     outputClient.writeBytes("Logout\n");//Invio killer line
                     //chiusura connessione
                     inputClient.close();
