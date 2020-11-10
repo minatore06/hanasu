@@ -7,23 +7,40 @@ import java.net.*;
  */
 public class Client {
     String nomeServer = "localhost";
-    int portaServer = 5678;
+    int portaServer = 12345;
     Socket mioSocket;
     BufferedReader tastiera;
     String stringaClient;
     String stringaServer;
     DataOutputStream outputServer;
     BufferedReader inputServer;
+    Trasmetti trasmetti = null;
+    Ricevi ricevi = null;
+    String nick = "";
+    ClientChat gui = null;
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Client cliente = new Client();
         cliente.connetti();
+    }*/
+
+    public Trasmetti getTrasmetti(){
+        return trasmetti;
     }
     
-    public Socket connetti(){
+    public Client(String ip, int porta, String nickname, ClientChat gui){
+        nomeServer = ip;
+        portaServer = porta;
+        nick = nickname;
+        this.gui = gui;
+        
+        connetti();
+    }
+    
+    public void connetti(){
         System.out.println("Client in esecuzione!");
         try {
-            tastiera = new BufferedReader(new InputStreamReader(System.in));
+            //tastiera = new BufferedReader(new InputStreamReader(System.in));
             mioSocket = new Socket(nomeServer,portaServer);
             
             outputServer = new DataOutputStream((mioSocket.getOutputStream()));
@@ -37,21 +54,18 @@ public class Client {
             System.out.println("Errore durante la connessione");
             System.exit(1);
         }
-        return mioSocket;
     }
     
     public void comunica(){
         try {
-            System.out.println(inputServer.readLine());
+            //System.out.println(inputServer.readLine());//non server più, togliere dal server
             
-            stringaClient = tastiera.readLine();
-            outputServer.writeBytes(stringaClient+'\n');
+            outputServer.writeBytes(nick+'\n');
 
-            System.out.println(inputServer.readLine()+"\n");
+            gui.addMsg(inputServer.readLine()+"\r\n");//lista nomi, mettere su gui
 
-            Trasmetti trasmetti = new Trasmetti(new DataOutputStream(outputServer), mioSocket);
-            Ricevi ricevi = new Ricevi(new BufferedReader(new InputStreamReader(mioSocket.getInputStream())));
-            trasmetti.start();
+            trasmetti = new Trasmetti(outputServer, mioSocket, gui);
+            ricevi = new Ricevi(inputServer, gui);
             ricevi.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -59,6 +73,10 @@ public class Client {
             System.exit(1);
         }
         
+    }
+    
+    public void logout(){
+        trasmetti.invia("Logout");
     }
     
 }

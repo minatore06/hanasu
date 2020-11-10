@@ -54,14 +54,35 @@ Fix chat one to one
 VER. #0.8.7
 Sistemato nickname one to one, veniva mostrato il destinatario invece del mittente
 
+VER. #0.9
+Create gui
+
+VER. #0.9.2
+Fatti input tramite gui
+
+VER. #1.0
+Riadattato clientGui perchè usasse i metodi già creati nella classe Client 
+
+VER. #1.0.2
+Trasmetti is no more a thread
+
+VER. #1.0.3
+Output spostato nella gui
+
+VER. #1.0.4
+Riadattato serverGui perchè usasse i metodi già creati nella classe MultiServer
+
+VER. #1.0.5
+Porta presa tramite input
+
 TO DO
 Controlli sul nickname
-Vietare caratteri e determinati nickname
+determinati nickname
 Istruzioni
-GUI
 Chiusura forzata
 Gruppi
 
 DONE
 chat one-all
 chat one-one
+GUI

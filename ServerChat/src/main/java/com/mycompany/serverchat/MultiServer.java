@@ -12,11 +12,18 @@ import java.util.logging.Logger;
  */
 public class MultiServer {
     Socket socket = null;
+    int porta = 12345;
     ArrayList<ServerThread> utenti = new ArrayList();
+    
+    public MultiServer(int porta){
+        this.porta = porta;
+        
+        start();
+    }
     
     public void start(){
         try{
-            ServerSocket serverSocket = new ServerSocket(5678);
+            ServerSocket serverSocket = new ServerSocket(porta);
             System.out.println("Server aperto!");
             System.out.println("Server in attesa...");
             

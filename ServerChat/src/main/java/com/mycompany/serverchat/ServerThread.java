@@ -33,13 +33,13 @@ public class ServerThread extends Thread{
         ArrayList<String> nomi = null;
         String listaNomi = "";
         
-        outputClient.writeBytes("Inserisci il tuo nickname\n");
+        //outputClient.writeBytes("Inserisci il tuo nickname\n");
         nick = inputClient.readLine();
         System.out.println(nick);
         
         gf.addUtente(this);
         
-        gf.sendAll(nick+" connected to the chat!", this);
+        gf.sendAll(nick+" si è connesso alla chat!", this);
         nomi = gf.getAllNicks(this);
         
         for (int i = 0; i < nomi.size(); i++) {
@@ -62,15 +62,15 @@ public class ServerThread extends Thread{
                 System.out.println(cmd);
                 switch(cmd){
                     case "dm":
-                        if(stringaClient.indexOf('^', 4)!=-1)/*carattere da rivedere, per indicare fine nome(magari fare con spazio)*/{
+                        if(stringaClient.indexOf(' ', 4)!=-1)/*carattere da rivedere, per indicare fine nome(magari fare con spazio)*/{
                             //prendi nome, cerca thread manda messagggio
-                            String destinatario = stringaClient.substring(4, stringaClient.indexOf('^'));
+                            String destinatario = stringaClient.substring(4, stringaClient.indexOf(' '));
                             System.out.println("destinatario: "+destinatario);
                             ArrayList<String> nomi = gf.getAllNicks(this);
                             
                             if(nomi.indexOf(destinatario)!=-1){
                                 //trovato
-                                gf.privateMSG(destinatario, nick, stringaClient.substring(stringaClient.indexOf('^')+2));
+                                gf.privateMSG(destinatario, nick, stringaClient.substring(stringaClient.indexOf(' ', 4)+2));
                             }else{
                                 //errore, non esiste
                                 outputClient.writeBytes("SISTEMA: L'utente non e' stato trovato\n");
@@ -83,13 +83,13 @@ public class ServerThread extends Thread{
                 }
             }else{
                 //Chiusura connessione con client
-                if(stringaClient.equals("FINE")){//rivedere
-                    System.out.println(nick+" left the chat!");
-                    outputClient.writeBytes("7586\n");//Invio killer line
+                if(stringaClient.equals("Logout")){//rivedere
+                    System.out.println(nick+" disconnesso!");
+                    outputClient.writeBytes("Logout\n");//Invio killer line
                     inputClient.close();
                     outputClient.close();
                     client.close();
-                    gf.sendAll(nick+" disconnected!", this);
+                    gf.sendAll(nick+" disconnesso!", this);
                     gf.removeUtente(this);
                     return;
                 }
@@ -99,7 +99,7 @@ public class ServerThread extends Thread{
 
                 } catch (Exception e) {
                     outputClient.writeBytes("Non ci sono utenti rimasti in chat, disconnessione automatica!\n");
-                    outputClient.writeBytes("7586\n");
+                    outputClient.writeBytes("Logout\n");
                     inputClient.close();
                     outputClient.close();
                     client.close();
