@@ -1,3 +1,4 @@
-com/mycompany/clientchat/Ricevi.class
-com/mycompany/clientchat/Trasmetti.class
-com/mycompany/clientchat/Client.class
+com\mycompany\clientchat\ClientChat.class
+com\mycompany\clientchat\Ricevi.class
+com\mycompany\clientchat\Trasmetti.class
+com\mycompany\clientchat\Client.class

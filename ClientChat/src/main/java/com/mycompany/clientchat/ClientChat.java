@@ -38,7 +38,7 @@ public class ClientChat extends JFrame implements ActionListener, KeyListener{
     public ClientChat() throws IOException
     { 
         JLabel lblMessage = new JLabel("Convalidazione"); 
-        txtIP = new JTextField("127.0.0.1");
+        txtIP = new JTextField("87.19.188.88");
         txtPorta = new JTextField("12345");
         txtNome = new JTextField("Client"); 
         Object[] texts = {lblMessage, txtIP, txtPorta, txtNome }; 
