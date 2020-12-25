@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.6.3
+Main-Class: com.mycompany.clientchat.ClientChat
+Built-By: stei2
+Build-Jdk: 15
+
